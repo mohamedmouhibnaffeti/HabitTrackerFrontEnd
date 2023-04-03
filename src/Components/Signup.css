@@ -1,0 +1,32 @@
+.SignupContainer{
+    align-items: center;
+    display: block;
+    margin: 50px 36%;
+    background-color: rgba(0, 174, 255, 0.236);
+    width: 400px;
+    height: 380px;
+    text-align: center;
+    border-radius: 10px;
+}
+#SignupH1{
+    padding: 5px;
+}
+#signuptxt{
+    border-radius: 7px;
+    height: 32px;
+    width: 250px;
+}
+#signupbtn{
+    border-radius: 7px;
+    height: 32px;
+    width: 100px;
+    cursor: pointer;
+}
+#Signuptxt{
+    margin-top: 7px;
+    cursor: pointer;
+    font-size: 17px
+}
+#Signuptxt :hover{
+    text-decoration: underline;
+}

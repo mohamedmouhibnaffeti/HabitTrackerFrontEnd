@@ -1,0 +1,6 @@
+body{
+  background-color: rgb(189, 189, 195);
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}

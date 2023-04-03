@@ -1,0 +1,24 @@
+#title1{
+    margin: 75px 42%;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+#title2{
+    margin: 20px 42%;
+    font-size: 30px;
+}
+#Caloriestxt{
+    font-size: 17px;
+    margin: 15px 33%;
+}
+#Taskstxt{
+    font-size: 17px;
+    margin: 15px 36.5%;
+}
+#addTask{
+    background-color: cadetblue;
+    height: 20px;
+    width: 20px;
+    padding: 0 ;
+    padding-left: 0;
+}

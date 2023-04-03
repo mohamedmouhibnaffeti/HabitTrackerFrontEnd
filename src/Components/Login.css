@@ -1,0 +1,67 @@
+.LoginItems{
+    margin-top: 50px;
+    display: block;
+    align-items: center;
+    margin-left: 38%;
+    background-color: rgba(0, 174, 255, 0.236);
+    width: 400px;
+    height: 360px;
+    text-align: center;
+    border-radius: 10px;
+}
+#txt{
+    border-radius: 7px;
+    height: 32px;
+    width: 250px;
+}
+#btn{
+    border-radius: 7px;
+    height: 32px;
+    width: 100px;
+    cursor: pointer;
+}
+#Logintxt{
+    cursor: pointer;
+    font-size: 17px
+}
+#Logintxt:hover{
+    color: blue;
+    text-decoration: underline;
+}
+#LoginH1{
+    padding: 10px;
+}
+
+
+@media only screen and (max-width: 800px){
+    .LoginItems{
+        margin-left: 100px;
+    }
+}
+
+
+@media only screen and (max-width: 700px){
+    .LoginItems{
+        margin-left: 85px;
+    }
+}
+
+
+@media only screen and (max-width: 650px){
+    .LoginItems{
+        margin-left: 70px;
+    }
+}
+
+
+@media only screen and (max-width: 600px){
+    .LoginItems{
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .LoginItems{
+        margin-left: 30px;
+    }
+}
