@@ -4,13 +4,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import Home from './Home'
+
 function Login(){
 
     //username field control... To be used later.
     const [username, setusername] = useState('')
     const handleChangeUsername = (event) =>{
         setusername(event.target.value);
+        setNoUser('');
     }
 
     //password field control... To be used later.

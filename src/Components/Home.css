@@ -22,3 +22,55 @@
     padding: 0 ;
     padding-left: 0;
 }
+
+.TasksDiv {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+    border-left: 2px solid #ccc;
+    padding-left: 10px;
+}
+  
+.TaskWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+  
+.TaskDiv, .dropdown {
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 4px;
+}
+  
+.TaskText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding-left: 10px;    
+    padding: 4px;
+}
+  
+  /* align taskdivs on top */
+.TaskWrapper > *:first-child {
+    align-self: flex-start;
+}
+.AddTaskPerformer{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color: aliceblue;
+    border: 1px solid black;
+    width: fit-content;
+    padding: 3px 3px;
+    border-radius: 4px;
+    margin: 10px 44%;
+
+}

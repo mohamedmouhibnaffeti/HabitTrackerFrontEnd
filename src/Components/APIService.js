@@ -12,6 +12,7 @@ export default class APIService {
     .then(resp => resp.json())
     .catch(error => error)
 }
+
     static Signup (body){
         return fetch('http://localhost:8000/users/', {
             'method': 'POST',
@@ -21,6 +22,7 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
+
     static GetTasks(token){
         return fetch('http://localhost:8000/tasks/', {
           method: 'GET',
@@ -33,6 +35,7 @@ export default class APIService {
         .then(data => data)
         .catch(error => error)
       }
+
       static PostTask (body){
         return fetch('http://localhost:8000/tasks/', {
             'method': 'POST',
@@ -42,21 +45,25 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
-    static ChangeTask (state, number){
-        return fetch(`http://localhost:8000/tasks/${number}`,{
-            'method': 'PUT',
-            headers : {
-                'Content-Type': 'application/json',
-            },
-            state:JSON.stringify(state)
-        }).then(resp => resp)
-    }
-    static DeleteTask (number){
-        return fetch(`http://localhost:8000/tasks/${number}`,{
+
+    static DeleteTask (id){
+        return fetch(`http://localhost:8000/tasks/${id}/`,{
             'method': 'DELETE',
             headers : {
                 'Content-Type': 'application/json',
             },
         }).then(resp => resp)
+    }
+
+    static UpdateTask (body,id,token){
+        return fetch (`http://localhost:8000/tasks/${id}/`,{
+            'method': 'PUT',
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp)
+        .catch(error => error)
     }
 }
