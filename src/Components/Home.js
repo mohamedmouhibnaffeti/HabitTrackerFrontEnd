@@ -7,8 +7,10 @@ import { Routes, Route } from 'react-router-dom'
 import Profile from "./Profile";
 import { useCookies } from 'react-cookie'
 import APIService from "./APIService";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import EditTaskPopup from "./EditTaskPopUp";
 function Home(){
+  
     var Calories = 1000;
     var Protein = 180;
     var Carbs = 50;
@@ -38,6 +40,7 @@ function Home(){
     //task title and description and owner
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [id, setId] = useState('')
     const userID = user['username']
 
     const task = {
@@ -58,23 +61,22 @@ function Home(){
       name : 'hruzh',
       description : 'bla bla bla bla '
     }
-
     const EditTask = () => {
-      APIService.UpdateTask(taskEditing, 10, token['mytoken'])
+      APIService.UpdateTask(taskEditing, 1, token['mytoken'])
       .then(resp => console.log(resp))
       .catch(error => console.log(error))
     }
 
     //deleting tasks
     const DeleteTask = () => {
-      APIService.DeleteTask(10)
+      APIService.DeleteTask(1)
       .then(resp => console.log(resp))
       .catch(error => console.log(error))
     }
 
-
     //activating Addtask popup
     const [trigger, setTrigger] = useState(false)
+    const [editTask, toggleEditTask] = useState(false)
     return(
         <>
         <Nav/>
@@ -82,8 +84,10 @@ function Home(){
             <p id="title1">Calories intake</p>
             <p id="Caloriestxt">Today's Calories: {Calories} , Today's Carbs: {Carbs} , Today's Protein: {Protein} </p>
             <p id="title2">Tasks Statistics</p>
-            <p id="Taskstxt">All Tasks: {AllTasks} , Tasks Done: {TasksDone} , Tasks Cancelled: {TasksCancelled} </p>
-            <div className="AddTaskPerformer">Create New Task</div>
+            <p id="Taskstxt">All Tasks: {AllTasks} , Tasks Done: {TasksDone} , Tasks Cancelled: {TasksCancelled} </p>     
+
+            <div className="AddTaskPerformer" onClick={setTrigger}>Create New Task</div>
+            <AddTask trigger={trigger} setTrigger={setTrigger} />
             <div class="TasksDiv">
             <div class="TaskWrapper">
               <div class="TaskDiv">Overdue</div>
@@ -95,34 +99,56 @@ function Home(){
             </div>
             <div class="TaskWrapper">
               <div class="TaskDiv">Today's Tasks</div>
+              {Tasks && Tasks.length > 0 && Tasks.map(task => {
+                  return (
+                    <>
+                      {user['username']  === task.owner && (
+                      <div className="TaskText">
+                        <div>
+                          <p>id: {task.id}</p>
+                          <h3>Title: {task.name}</h3>
+                          <p>description: {task.description}</p>
+                          <h4>Priority: <span style={{
+
+                            color : 
+                                task.priority === 'Medium' ? 'green' :
+                                task.priority === 'High' ? 'red' : 
+                                task.priority === 'Low' ? 'darkBlue' :
+                                task.priority === 'None' ? 'black' : ""
+                              }}>{task.priority}</span></h4>
+                          {/*{task.completed ? (
+                            <p>Completed: True</p>
+                            ) : (<p>Completed: False</p>)} */ }
+                            </div>
+                            <div className="IconsWrapper">
+                              <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-edit" id="TaskIcon" onClick={toggleEditTask}/></div>
+                              <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-trash" id="TaskIcon"/></div>
+                            </div>
+                            <EditTaskPopup editTask={editTask} toggleEditTask={toggleEditTask} identifier={task.id}/>
+                      </div>)}
+                    </>
+                    )
+})}
               <div class="TaskText">
                 <h3>Task Title</h3>
                 <p>Task DescriptionTask DescriptionTask DescriptionTask Description</p>
                 <h4>Priority: <span style={{color : 'Green'}}>Medium</span></h4>
               </div>
-              <div class="TaskText">
-                <h3>Task Title</h3>
-                <p>Task DescriptionTask DescriptionTask DescriptionTask Description</p>
-                <h4 >Priority: <span style={{color : 'Red'}}>High</span></h4>
-              </div>
+              
             </div>
             <div class="TaskWrapper">
-              <div class="dropdown">Date</div>
+              <div class="TaskDiv">Select Date</div>
               <div class="TaskText">
                 <h3>Task Title</h3>
                 <p>Task DescriptionTask DescriptionTask DescriptionTask Description</p>
-                <h4>Priority: <span style={{color : 'Black'}}>None</span></h4>
-              </div>
-              <div class="TaskText">
-                <h3>Task Title</h3>
-                <p>Task DescriptionTask DescriptionTask DescriptionTask Description</p>
-                <h4>Priority: <span style={{color : 'Orange'}}>Important</span></h4>
+                <h4>Priority: <span>Low</span></h4>
               </div>
             </div>
             </div>
             <br/><br/><br/><br/><br/>
-            
 
+            
+            
 
       <input type='text' onChange={(e)=>setTitle(e.target.value)} value={title} />
       <input type='text' onChange={(e)=>setDescription(e.target.value)} value={description} />

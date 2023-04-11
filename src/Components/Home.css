@@ -57,8 +57,11 @@
     border-radius: 5px;
     padding-left: 10px;    
     padding: 4px;
+    cursor: pointer;
 }
-  
+.TaskText:hover{
+    border: 1px solid black;
+}
   /* align taskdivs on top */
 .TaskWrapper > *:first-child {
     align-self: flex-start;
@@ -72,5 +75,18 @@
     padding: 3px 3px;
     border-radius: 4px;
     margin: 10px 44%;
-
+    cursor: pointer;
+}
+.AddTaskPerformer:hover{
+    background-color:  #f1f1f1;
+}
+.IconsWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 16px;
+    margin-left: 90%;
+}
+.IconsWrapper #TaskIcon:hover{
+    color:#74575796;
 }

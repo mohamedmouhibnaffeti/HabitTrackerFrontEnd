@@ -9,7 +9,6 @@ import Profile from './Components/Profile';
 import Mental from './Components/Mental';
 import { useCookies } from 'react-cookie'
 import APIService from './Components/APIService';
-
 function App() {
   return (
     <div>

@@ -66,4 +66,13 @@ export default class APIService {
         }).then(resp => resp)
         .catch(error => error)
     }
+    static GetTaskById (id){
+        return fetch (`http://localhost:8000/tasks/${id}/`,{
+            'method': 'GET',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+        }).then(resp => resp)
+        .catch(error => error)
+    }
 }

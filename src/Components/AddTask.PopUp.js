@@ -1,13 +1,62 @@
-import React from "react";
+import React, {useState} from "react";
 import './AddTaskPopup.css'
+import Dropdown from "./Dropdown";
+import APIService from "./APIService";
+import { useRef } from "react";
+import { useCookies } from 'react-cookie'
 function AddTask(props) {
+        //task title and description and owner
+        const [user, setuser] = useCookies(['username'])
+        const [title, setTitle] = useState('')
+        const [description, setDescription] = useState('')
+        const selected = useRef('Priority')
+        const userID = user['username']
+    
+        const task = {
+          owner : userID,
+          name : title,
+          description : description,
+          priority : selected.current === 'Priority' ? ('None') : (selected.current)
+        }
+        //adding tasks
+        const PostTask = () =>{
+          APIService.PostTask(task)
+          .then(resp => console.log(resp))
+          .catch(error => console.log(error))
+        }
+
+        //cancel button handling:
+        const CancelButtonHandling = () =>{
+            props.setTrigger(false)
+            setDescription('')
+            setTitle('')
+            selected.current="Priority"
+        }
+
+        //Confirm button Handling:
+        const ConfirmButtonHandling = () =>{
+            PostTask()
+            props.setTrigger(false)
+            setDescription('')
+            setTitle('')
+            selected.current="Priority"   
+        }
+    
+    const [open, setOpen] = useState(false)
     return (props.trigger) ? (
         <div className="AddTaskPopup" >
             <div className="AddTaskPopupInner" >
-                <h1 className="Taskstxt">Tasks Are Here</h1>
-                <button className="Cancel-btn" onClick={()=>{ props.setTrigger(false)}}>Cancel</button>
-                <button className="Confirm-btn">Confirm</button>
-                
+                <div className="input-container-add-tasks">
+                <h1 id="add-task-h1">Add Task</h1>
+                    <input type="text" className="add-task-input" placeholder="Task Title" onChange={(e)=>setTitle(e.target.value)} value={title} />
+                    <input type="text" className="add-task-input" placeholder="Task Description" onChange={(e)=>setDescription(e.target.value)} value={description} />
+                    <button className="dropdown-btn" onClick={()=>setOpen(!open)}>{selected.current}</button>
+                    {open && <Dropdown selected={selected} open={open} setOpen={setOpen} />}
+                </div>
+                <div className="buttons-container">
+                    <button className="Cancel-btn" onClick={CancelButtonHandling}>Cancel</button>
+                    <button className="Confirm-btn" onClick={ConfirmButtonHandling}>Confirm</button>
+                </div>
             </div>
         </div>
     ) : ""
