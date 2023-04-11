@@ -40,6 +40,7 @@ function AddTask(props) {
             setDescription('')
             setTitle('')
             selected.current="Priority"   
+            window.location.reload()
         }
     
     const [open, setOpen] = useState(false)

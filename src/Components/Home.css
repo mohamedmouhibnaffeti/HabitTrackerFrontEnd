@@ -31,6 +31,7 @@
     gap: 20px;
     border-left: 2px solid #ccc;
     padding-left: 10px;
+    justify-content: space-around;
 }
   
 .TaskWrapper {
@@ -38,6 +39,7 @@
     flex-direction: column;
     gap: 10px;
     flex-wrap: wrap;
+    width: 450px;
 }
   
 .TaskDiv, .dropdown {
@@ -71,11 +73,12 @@
     font-weight: bold;
     background-color: aliceblue;
     border: 1px solid black;
-    width: fit-content;
+    width: auto;
     padding: 3px 3px;
     border-radius: 4px;
-    margin: 10px 44%;
+    margin: 10px 45%;
     cursor: pointer;
+    text-align: center;
 }
 .AddTaskPerformer:hover{
     background-color:  #f1f1f1;
