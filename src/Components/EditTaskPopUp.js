@@ -4,6 +4,7 @@ import APIService from './APIService';
 import Dropdown from "./Dropdown";
 import { useCookies } from 'react-cookie';
 function EditTaskPopup(props){
+    const [date, setDate] = useState()
     //task title
     const [title, setTitle] = useState('')
     //task description
@@ -56,7 +57,8 @@ function EditTaskPopup(props){
     const taskEditing = {
         owner : userID,
         name : EditTitle,
-        description : Editdesc
+        description : Editdesc,
+        priority : selected.current
     }
     
     const EditTaskData = () => {
@@ -70,8 +72,9 @@ function EditTaskPopup(props){
             <div className="EditTaskPopupInner" >
                 <div className="input-container-edit-tasks">
                 <h1 id="edit-task-h1">Edit Task</h1>
-                    <input type="text" className="edit-task-input" placeholder={title} onChange={(e)=>setEditTitle(e.target.value)} value={EditTitle}  />
-                    <input type="text" className="edit-task-input" placeholder={description} onChange={(e)=>setEditdesc(e.target.value)} value={Editdesc}  />
+                    <input type="text" className="edit-task-input" placeholder={title} onChange={(e)=>setEditTitle(e.target.value)} value={EditTitle}  required/>
+                    <input type="text" className="edit-task-input" placeholder={description} onChange={(e)=>setEditdesc(e.target.value)} value={Editdesc}  required/>
+                    <input type="date" className="add-task-input-date" onChange={e=>setDate(e.target.value)} required/>
                     <button className="dropdown-btn" onClick={()=>setOpen(!open)}>{selected.current}</button>
                     {open && <Dropdown selected={selected} open={open} setOpen={setOpen} />}
                 </div>

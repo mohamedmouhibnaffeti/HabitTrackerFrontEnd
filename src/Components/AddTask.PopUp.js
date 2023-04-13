@@ -11,11 +11,13 @@ function AddTask(props) {
         const [description, setDescription] = useState('')
         const selected = useRef('Priority')
         const userID = user['username']
+        const [date, setDate] = useState()
     
         const task = {
           owner : userID,
           name : title,
           description : description,
+          date : date,
           priority : selected.current === 'Priority' ? ('None') : (selected.current)
         }
         //adding tasks
@@ -49,10 +51,11 @@ function AddTask(props) {
             <div className="AddTaskPopupInner" >
                 <div className="input-container-add-tasks">
                 <h1 id="add-task-h1">Add Task</h1>
-                    <input type="text" className="add-task-input" placeholder="Task Title" onChange={(e)=>setTitle(e.target.value)} value={title} />
-                    <input type="text" className="add-task-input" placeholder="Task Description" onChange={(e)=>setDescription(e.target.value)} value={description} />
+                    <input type="text" className="add-task-input" placeholder="Task Title" onChange={(e)=>setTitle(e.target.value)} value={title} required/>
+                    <input type="text" className="add-task-input" placeholder="Task Description" onChange={(e)=>setDescription(e.target.value)} value={description} required/>
+                    <input type="date" className="add-task-input-date" onChange={e=>setDate(e.target.value)} required/>
                     <button className="dropdown-btn" onClick={()=>setOpen(!open)}>{selected.current}</button>
-                    {open && <Dropdown selected={selected} open={open} setOpen={setOpen} />}
+                    {open && <Dropdown selected={selected} open={open} setOpen={setOpen}/>}
                 </div>
                 <div className="buttons-container">
                     <button className="Cancel-btn" onClick={CancelButtonHandling}>Cancel</button>

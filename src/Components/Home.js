@@ -11,12 +11,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditTaskPopup from "./EditTaskPopUp";
 import TasksChart from "./TasksChart";
 function Home(){
-
+    //useState of task based on date selection
+    const dateTest = new Date()
+    const [dateSelected, setDateSelected] = useState(false)
+    const [selectedDate, setSelectedDate] = useState() 
+    let selectionDate = ''
+    useEffect(()=>{
+      if(dateSelected){
+        console.log("selected",selectedDate)
+        let selectionDate = selectedDate.getFullYear().toString() + ':' + selectedDate.getMonth().toString() + ':' + selectedDate.getDate().toString()
+      }
+    })
+    
+    //today's date:
+    let TodayDate = ''
+    const date = new Date()
+    TodayDate+=date.getFullYear().toString() +':'+ date.getMonth().toString() +':'+ date.getDate().toString() 
+    console.log(TodayDate)
     //User Token saved in the cookies
     const [token, setToken] = useCookies(['mytoken'])
     //username saved in the cookies
     const [user, setuser] = useCookies(['username'])
-    const [ignored, forceUpdate] = useReducer(x => x+1,0);
     //fetching tasks data from API
     const [Tasks, setTask] = useState([])
     useEffect(() => {
@@ -39,9 +54,9 @@ function Home(){
             <TasksChart/>   
             <div className="AddTaskPerformer" onClick={setTrigger}>Create New Task</div>
             <AddTask trigger={trigger} setTrigger={setTrigger} />
-            <div class="TasksDiv">
-            <div class="TaskWrapper">
-              <div class="TaskDiv">Overdue Tasks</div>
+            <div className="TasksDiv">
+            <div className="TaskWrapper">
+              <div className="TaskDiv">Overdue Tasks</div>
               {Tasks && Tasks.length > 0 && Tasks.map(task => {
                   return (
                     <>
@@ -64,6 +79,20 @@ function Home(){
                             
                             </div>
                             <div className="IconsWrapper">
+                            <div className="HomeIcons"><FontAwesomeIcon icon="fa fa-check-square" onClick={()=>{
+                                                                                                              console.log("taskname: ",task.name,"\ntaskdescription: ", task.description)
+                                                                                                              const FinishTask = {
+                                                                                                                  owner : userID,
+                                                                                                                  name : task.name,
+                                                                                                                  description : task.description,
+                                                                                                                  priority : task.priority,
+                                                                                                                  completed : true,
+                                                                                                                  date : task.date                                                                                                                
+                                                                                                              }
+                                                                                                              APIService.UpdateTask(FinishTask, task.id, token['mytoken'])
+                                                                                                              .then(resp => console.log(resp))
+                                                                                                              .catch(error => console.log(error))
+                                }} id="TaskIcon"/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-edit" id="TaskIcon" onClick={()=>{toggleEditTask(true);setId(task.id)}}/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-trash" id="TaskIcon" onClick={()=>{APIService.DeleteTask(task.id)
                                                                                                                                .then(window.location.reload())
@@ -78,12 +107,14 @@ function Home(){
 })}
               
             </div>
-            <div class="TaskWrapper">
-              <div class="TaskDiv">Today's Tasks</div>
+            <div className="TaskWrapper">
+              <div className="TaskDiv">Today's Tasks</div>
               {Tasks && Tasks.length > 0 && Tasks.map(task => {
+                  const TaskFullDate = new Date(task.date) 
+                  let taskDate = TaskFullDate.getFullYear().toString() +':'+ TaskFullDate.getMonth().toString() +':'+ TaskFullDate.getDate().toString()         
                   return (
                     <>
-                      {user['username']  === task.owner && (
+                      {user['username']  === task.owner && taskDate === TodayDate && (
                       <div className="TaskText">
                         <div>
                           <h3>Title: {task.name}</h3>
@@ -102,6 +133,20 @@ function Home(){
                             
                             </div>
                             <div className="IconsWrapper">
+                            <div className="HomeIcons"><FontAwesomeIcon icon="fa fa-check-square" onClick={()=>{
+                                                                                                              console.log("taskname: ",task.name,"\ntaskdescription: ", task.description)
+                                                                                                              const FinishTask = {
+                                                                                                                  owner : userID,
+                                                                                                                  name : task.name,
+                                                                                                                  description : task.description,
+                                                                                                                  priority : task.priority,
+                                                                                                                  completed : true,
+                                                                                                                  date : task.date                                                                                                                
+                                                                                                              }
+                                                                                                              APIService.UpdateTask(FinishTask, task.id, token['mytoken'])
+                                                                                                              .then(resp => console.log(resp))
+                                                                                                              .catch(error => console.log(error))
+                                }} id="TaskIcon"/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-edit" id="TaskIcon" onClick={()=>{toggleEditTask(true);setId(task.id)}}/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-trash" id="TaskIcon" onClick={()=>{APIService.DeleteTask(task.id)
                                                                                                                                .then(window.location.reload())
@@ -116,12 +161,15 @@ function Home(){
 })}
               
             </div>
-            <div class="TaskWrapper">
-              <div class="TaskDiv">Sekect Date</div>
+            <div className="TaskWrapper">
+              <input type="date" onChange={e=>{setSelectedDate(e.target.value);setDateSelected(true);window.location.reload()}} className="date-selection" value={selectedDate}/>
               {Tasks && Tasks.length > 0 && Tasks.map(task => {
-                  return (
+                    console.log("selectedDate: ", selectionDate)
+                    const TaskFullDate = new Date(task.date) 
+                    let taskDate = TaskFullDate.getFullYear().toString() +':'+ TaskFullDate.getMonth().toString() +':'+ TaskFullDate.getDate().toString() 
+                    return (
                     <>
-                      {user['username']  === task.owner && (
+                      {user['username']  === task.owner && taskDate === selectionDate && (
                       <div className="TaskText">
                         <div>
                           <h3>Title: {task.name}</h3>
@@ -138,8 +186,22 @@ function Home(){
                             <p>Completed: True</p>
                             ) : (<p>Completed: False</p>)} */ }
                             
-                            </div>
-                            <div className="IconsWrapper">
+                            </div>                              
+                              <div className="IconsWrapper">
+                              <div className="HomeIcons"><FontAwesomeIcon icon="fa fa-check-square" onClick={()=>{
+                                                                                                              console.log("taskname: ",task.name,"\ntaskdescription: ", task.description)
+                                                                                                              const FinishTask = {
+                                                                                                                  owner : userID,
+                                                                                                                  name : task.name,
+                                                                                                                  description : task.description,
+                                                                                                                  priority : task.priority,
+                                                                                                                  completed : true,
+                                                                                                                  date : task.date                                                                                                                
+                                                                                                              }
+                                                                                                              APIService.UpdateTask(FinishTask, task.id, token['mytoken'])
+                                                                                                              .then(resp => console.log(resp))
+                                                                                                              .catch(error => console.log(error))
+                                }} id="TaskIcon"/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-edit" id="TaskIcon" onClick={()=>{toggleEditTask(true);setId(task.id)}}/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-trash" id="TaskIcon" onClick={()=>{APIService.DeleteTask(task.id)
                                                                                                                                .then(window.location.reload())

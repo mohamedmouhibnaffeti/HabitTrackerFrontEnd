@@ -42,7 +42,7 @@
     width: 450px;
 }
   
-.TaskDiv, .dropdown {
+.TaskDiv {
     font-size: 20px;
     font-weight: bold;
     width: 100%;
@@ -51,6 +51,17 @@
     border-radius: 4px;
 }
   
+.date-selection{
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 4px;
+    border: 0;
+    cursor: pointer;
+}
+
 .TaskText {
     display: flex;
     flex-direction: column;
@@ -88,7 +99,7 @@
     flex-direction: row;
     gap: 10px;
     font-size: 16px;
-    margin-left: 90%;
+    margin-left: 83%;
 }
 .IconsWrapper #TaskIcon:hover{
     color:#74575796;
