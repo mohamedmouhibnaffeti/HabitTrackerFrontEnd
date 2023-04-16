@@ -29,7 +29,7 @@
     flex-direction: row;
     align-items: stretch;
     gap: 20px;
-    border-left: 2px solid #ccc;
+    border-left: 2px solid  #f8fbfc;
     padding-left: 10px;
     justify-content: space-around;
 }
@@ -47,7 +47,7 @@
     font-weight: bold;
     width: 100%;
     text-align: center;
-    background-color: aliceblue;
+    background-color:  #f8fbfc;
     border-radius: 4px;
 }
   
@@ -56,7 +56,7 @@
     font-weight: bold;
     width: 100%;
     text-align: center;
-    background-color: aliceblue;
+    background-color:  #f8fbfc;
     border-radius: 4px;
     border: 0;
     cursor: pointer;
@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: aliceblue;
+    background-color:  #f8fbfc;
     border-radius: 5px;
     padding-left: 10px;    
     padding: 4px;
@@ -82,7 +82,7 @@
 .AddTaskPerformer{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
-    background-color: aliceblue;
+    background-color: #f8fbfc;
     border: 1px solid black;
     width: auto;
     padding: 3px 3px;
@@ -99,7 +99,7 @@
     flex-direction: row;
     gap: 10px;
     font-size: 16px;
-    margin-left: 83%;
+    margin-left: 85%;
 }
 .IconsWrapper #TaskIcon:hover{
     color:#74575796;

@@ -12,24 +12,19 @@ import EditTaskPopup from "./EditTaskPopUp";
 import TasksChart from "./TasksChart";
 function Home(){
     //useState of task based on date selection
-    const dateTest = new Date()
-    const [dateSelected, setDateSelected] = useState(false)
-    const [selectedDate, setSelectedDate] = useState() 
-    let selectionDate = ''
-    useEffect(()=>{
-      if(dateSelected){
-        console.log("selected",selectedDate)
-        let selectionDate = selectedDate.getFullYear().toString() + ':' + selectedDate.getMonth().toString() + ':' + selectedDate.getDate().toString()
-      }
-    })
-    
+    const [putDate, setPutDate] = useCookies(['putDate'])
+
+    let dateTest = '';
     //today's date:
     let TodayDate = ''
     const date = new Date()
-    TodayDate+=date.getFullYear().toString() +':'+ date.getMonth().toString() +':'+ date.getDate().toString() 
+    TodayDate+=date.getFullYear().toString() +'-'+ date.getMonth().toString() +'-'+ date.getDate().toString() 
     console.log(TodayDate)
     //User Token saved in the cookies
     const [token, setToken] = useCookies(['mytoken'])
+    //cookie to save selected date
+    const [selectedDate, setSelectedDate] = useCookies(['selected'])
+    console.log("SelectedDateCookie: ", selectedDate['selected'])
     //username saved in the cookies
     const [user, setuser] = useCookies(['username'])
     //fetching tasks data from API
@@ -58,9 +53,13 @@ function Home(){
             <div className="TaskWrapper">
               <div className="TaskDiv">Overdue Tasks</div>
               {Tasks && Tasks.length > 0 && Tasks.map(task => {
+                const TaskFullDate = new Date(task.date) 
+                let taskDate = TaskFullDate.getFullYear().toString() +'-'+ TaskFullDate.getMonth().toString() +'-'+ TaskFullDate.getDate().toString() 
+                const TaskSideCompare = new Date(taskDate)
+                const TodaySideCompare = new Date(TodayDate)
                   return (
                     <>
-                      {user['username']  === task.owner && (
+                      {user['username']  === task.owner && TaskSideCompare < TodaySideCompare && task.completed===false && (
                       <div className="TaskText">
                         <div>
                           <h3>Title: {task.name}</h3>
@@ -80,7 +79,7 @@ function Home(){
                             </div>
                             <div className="IconsWrapper">
                             <div className="HomeIcons"><FontAwesomeIcon icon="fa fa-check-square" onClick={()=>{
-                                                                                                              console.log("taskname: ",task.name,"\ntaskdescription: ", task.description)
+                                                                                                            
                                                                                                               const FinishTask = {
                                                                                                                   owner : userID,
                                                                                                                   name : task.name,
@@ -90,7 +89,7 @@ function Home(){
                                                                                                                   date : task.date                                                                                                                
                                                                                                               }
                                                                                                               APIService.UpdateTask(FinishTask, task.id, token['mytoken'])
-                                                                                                              .then(resp => console.log(resp))
+                                                                                                              .then(window.location.reload())
                                                                                                               .catch(error => console.log(error))
                                 }} id="TaskIcon"/></div>
                               <div className="HomeIcons"><FontAwesomeIcon icon="fa-solid fa-edit" id="TaskIcon" onClick={()=>{toggleEditTask(true);setId(task.id)}}/></div>
@@ -111,7 +110,7 @@ function Home(){
               <div className="TaskDiv">Today's Tasks</div>
               {Tasks && Tasks.length > 0 && Tasks.map(task => {
                   const TaskFullDate = new Date(task.date) 
-                  let taskDate = TaskFullDate.getFullYear().toString() +':'+ TaskFullDate.getMonth().toString() +':'+ TaskFullDate.getDate().toString()         
+                  let taskDate = TaskFullDate.getFullYear().toString() +'-'+ TaskFullDate.getMonth().toString() +'-'+ TaskFullDate.getDate().toString()         
                   return (
                     <>
                       {user['username']  === task.owner && taskDate === TodayDate && (
@@ -162,14 +161,20 @@ function Home(){
               
             </div>
             <div className="TaskWrapper">
-              <input type="date" onChange={e=>{setSelectedDate(e.target.value);setDateSelected(true);window.location.reload()}} className="date-selection" value={selectedDate}/>
-              {Tasks && Tasks.length > 0 && Tasks.map(task => {
-                    console.log("selectedDate: ", selectionDate)
+              <input type="date" onChange={e=>{
+                                            setPutDate('putDate', e.target.value.toString())
+                                            const datejdid = new Date(e.target.value.toString());
+                                            let char = datejdid.getFullYear().toString() + '-' + datejdid.getMonth().toString() + '-' + datejdid.getDate().toString() 
+                                            console.log('selected date:   ', char)
+                                            setSelectedDate('selected', char)
+                                            
+                                            }} className="date-selection" value={putDate['putDate']}/>
+              {Tasks && Tasks.length > 0 &&  Tasks.map(task => {
                     const TaskFullDate = new Date(task.date) 
-                    let taskDate = TaskFullDate.getFullYear().toString() +':'+ TaskFullDate.getMonth().toString() +':'+ TaskFullDate.getDate().toString() 
+                    let taskDate = TaskFullDate.getFullYear().toString() +'-'+ TaskFullDate.getMonth().toString() +'-'+ TaskFullDate.getDate().toString() 
                     return (
                     <>
-                      {user['username']  === task.owner && taskDate === selectionDate && (
+                      {user['username']  === task.owner && taskDate === selectedDate['selected'] && (
                       <div className="TaskText">
                         <div>
                           <h3>Title: {task.name}</h3>

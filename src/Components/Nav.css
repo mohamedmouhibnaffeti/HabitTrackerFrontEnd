@@ -7,7 +7,7 @@
     background-size: contain;
 }
 nav{
-    background-color: rgba(95, 95, 163, 0.67);
+    background-color: #faaa1ec3;
     padding: 15px;
     position: absolute;
     background-size: contain;
@@ -22,36 +22,30 @@ li{
     margin-left: 30px;
     font-size: 20px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 #Title{
-    color: rgb(48, 35, 104);
+    color: #a4d2e6;
     margin-bottom: 7px;
     font-size: 20px;
     margin-left: 20px;
 }
 li .Login{
-    background-color: beige;
-    border-radius: 3px;
-    padding: 3px;
     margin-left : 230px;
     cursor: pointer;
+    color: #31525B;
+
 }
 ul{
     margin-left: 12%;
     margin-bottom: 7px;
 }
 li .Item{
-    background-color: beige;
-    border-radius: 3px;
-    padding: 3px;
     cursor: pointer;
+    
+
 }
-.Item:hover{
-    background-color: rgba(191, 206, 129, 0.421);
-}
-li .Login:hover{
-    background-color: rgba(191, 206, 129, 0.421);
-}
+
 
 @media only screen and (max-width: 1450px){
     ul{

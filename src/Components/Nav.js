@@ -5,7 +5,7 @@ import './Nav.css'
 function Nav(){
     const NavStyles = ({isActive}) => {
         return{
-            color : isActive ? 'purple' : 'black'
+            color : isActive ? '#FAE6B1' : '#31525B'
     };
     }
     const [token, setToken] = useCookies(['mytoken'])
