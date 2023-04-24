@@ -1,0 +1,22 @@
+.feeling-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 65px;
+}
+#feeling-question-text{
+    font-weight: bold;
+}
+.all-habits{
+    display: flex;
+    gap: 1em;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.good-habits , .bad-habits, .today-done{
+    padding: 4px;
+    text-align: center;
+    background-color: azure;
+    width: 350px;
+}

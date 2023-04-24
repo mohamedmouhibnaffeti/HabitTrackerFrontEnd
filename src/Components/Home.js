@@ -45,8 +45,7 @@ function Home(){
     return(
         <>
         <Nav/>
-        <div className="HomeContainer">
-            <TasksChart/>   
+        <div className="HomeContainer"> 
             <div className="AddTaskPerformer" onClick={setTrigger}>Create New Task</div>
             <AddTask trigger={trigger} setTrigger={setTrigger} />
             <div className="TasksDiv">
@@ -155,6 +154,7 @@ function Home(){
                             </div>
                             <EditTaskPopup editTask={editTask} toggleEditTask={toggleEditTask} identifier={id}/>
                       </div>)}
+                      
                     </>
                     )
 })}
@@ -230,6 +230,7 @@ function Home(){
             <Route path='/Home/Mental' element={<Mental/>} />
       </Routes>
         </div>
+        <TasksChart/>  
         </>
     );
 }

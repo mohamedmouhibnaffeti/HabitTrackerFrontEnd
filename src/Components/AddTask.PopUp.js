@@ -56,7 +56,7 @@ function AddTask(props) {
                     <input type="date" className="add-task-input-date" onChange={e=>setDate(e.target.value)} required/>
                     <button className="dropdown-btn" onClick={()=>setOpen(!open)}>{selected.current}</button>
                     {open && <Dropdown selected={selected} open={open} setOpen={setOpen}/>}
-                </div>
+                 </div>
                 <div className="buttons-container">
                     <button className="Cancel-btn" onClick={CancelButtonHandling}>Cancel</button>
                     <button className="Confirm-btn" onClick={ConfirmButtonHandling}>Confirm</button>

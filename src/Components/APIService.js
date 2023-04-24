@@ -76,4 +76,28 @@ export default class APIService {
         }).then(resp => resp.json())
         .catch(error => error)
     }
+
+    static GetGoodHabits(token){
+        return fetch('http://localhost:8000/goodhabits/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(resp => resp.json())
+        .catch(error => error)
+      }
+
+      static GetBadHabits(token){
+        return fetch('http://localhost:8000/badhabits/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(resp => resp.json())
+        .catch(error => error)
+      }
 }

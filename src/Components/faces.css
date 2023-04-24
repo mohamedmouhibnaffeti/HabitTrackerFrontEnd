@@ -1,0 +1,12 @@
+.faces-container{
+    display: flex;
+    gap: 10px;
+}
+#face{
+    color: rgb(202, 147, 79);
+    font-size: 37px;
+    cursor: pointer;
+}
+#face:hover{
+    translate: 0px -3px;
+}
