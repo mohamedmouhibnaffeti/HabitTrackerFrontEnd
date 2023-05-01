@@ -9,6 +9,7 @@ import Profile from './Components/Profile';
 import Mental from './Components/Mental';
 import { useCookies } from 'react-cookie'
 import APIService from './Components/APIService';
+import Workout from './Components/Workouts';
 function App() {
   return (
     <div>
@@ -18,6 +19,8 @@ function App() {
         <Route path='/Home' element={<Home/>} />
         <Route path='/Profile' element={<Profile/>} />
         <Route path='/Mental' element={<Mental/>} />
+        <Route path='/Workouts' element={<Workout/>}/>
+
       </Routes>
       <Footer/>
     </div>

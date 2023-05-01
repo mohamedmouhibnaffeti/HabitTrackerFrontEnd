@@ -5,6 +5,8 @@ import { useCookies } from 'react-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function AddHabits(props){
     //bad habits list to append to the api service later
+    const [user, setuser] = useCookies(['username'])
+    const username = user['username']
     const [badHabitValues, setBadHabitValues] = useState([])
     const handleBadHabitsChange = (e) =>{
         const val = e.target.value
@@ -51,7 +53,41 @@ function AddHabits(props){
     const RaiseisChecked = (value) => {
         return RaiseHabitValues.includes(value);
     }
-    return (props.addhabits) ? (
+
+    //posting habits
+    const PostButton = () =>{
+        const noCommonElements = GoodHabitValues.every(element => !RaiseHabitValues.includes(element)) && 
+                          RaiseHabitValues.every(element => !GoodHabitValues.includes(element));
+        if(badHabitValues.length > 0 && GoodHabitValues.length > 0 && RaiseHabitValues.length > 0 && noCommonElements){
+            badHabitValues.map(badHabitValue => {
+                const badhabit = {
+                    owner : username,
+                    name : badHabitValue
+                }
+                APIService.PostBadHabits(badhabit)
+            })
+            GoodHabitValues.map(goodHabitValue=>{
+                const goodhabit = {
+                    owner : username,
+                    name : goodHabitValue
+                }
+                APIService.PostGoodHabits(goodhabit)
+            })
+            RaiseHabitValues.map(raiseHabitValue=>{
+                const goodhabittoraise = {
+                    owner : username,
+                    name : raiseHabitValue
+                }
+                APIService.PostGoodHabitsToRaise(goodhabittoraise)
+            })
+            props.setHabitOpen(false)
+            console.log(props.Habitopen)
+        }
+        else{
+            alert("Check the habits you chose please")
+        }
+    }
+    return (props.Habitopen) ? (
         <div className="bad-habits-popup" >
             <div className='bad-habits-popup-inner-container'>
             <div className="bad-habits-popup-inner" >
@@ -166,10 +202,10 @@ function AddHabits(props){
                     </label>
 
                     <label>
-                        <div className={`bad-habit ${GoodisChecked('Sleep Less') ? 'checked' : ''}`}>
-                            <input type='checkbox' value='Sleep Less' checked={GoodisChecked('Sleep Less')} onChange={handleGoodHabitsChange} />
+                        <div className={`bad-habit ${GoodisChecked('Some Sleeping') ? 'checked' : ''}`}>
+                            <input type='checkbox' value='Some Sleeping' checked={GoodisChecked('Some Sleeping')} onChange={handleGoodHabitsChange} />
                             <FontAwesomeIcon id='bad-habit-icon' icon="fa-solid fa-bed" />
-                            <p>Sleep Less</p>
+                            <p>Some Sleeping</p>
                         </div>
                     </label>
                     </div>
@@ -239,7 +275,7 @@ function AddHabits(props){
         </div>
     </div>
     <div className="buttons-container">
-                    <button className="Confirm-btn">Confirm</button>
+                    <button className="Confirm-btn" onClick={PostButton}>Confirm</button>
                 </div>
 </div>
     ) : ""

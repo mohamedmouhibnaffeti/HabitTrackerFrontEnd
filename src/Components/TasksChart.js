@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import APIService from './APIService';
+import { useCookies } from 'react-cookie';
 
 function TasksChart() {
+  const [user, setuser] = useCookies(['username'])
+  const username = user['username']
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
   const [labels, setLabels] = useState();
@@ -23,6 +26,7 @@ function TasksChart() {
       const taskCountsByDate = {};
 
       tasks && tasks.length > 0 && tasks.forEach((task) => {
+        if(username === task.owner){
         const date = new Date(task.date);
         const dateLabel = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
         const todayDate = new Date();
@@ -35,6 +39,8 @@ function TasksChart() {
           taskCountsByDate[dateLabel] = 0;
         }
         taskCountsByDate[dateLabel]++;
+        }
+        
       });
 
       // Add today's label if there are no tasks for today and today's task value is 0

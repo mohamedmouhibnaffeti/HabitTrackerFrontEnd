@@ -43,7 +43,7 @@ function Login(){
     //Redirect after Login:
     let navigate = useNavigate()
     useEffect(()=>{
-        if(token['mytoken'].length >10){
+        if(token['mytoken']){
             navigate('/Home')
         }
     }, [token, navigate])

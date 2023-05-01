@@ -100,4 +100,91 @@ export default class APIService {
         .then(resp => resp.json())
         .catch(error => error)
       }
+      static GetHabitsToRaise(token){
+        return fetch('http://localhost:8000/goodhabitstoraise/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(resp => resp.json())
+        .catch(error => error)
+      }
+      static PostBadHabits (body){
+        return fetch('http://localhost:8000/badhabits/', {
+            'method': 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+    static PostGoodHabits (body){
+        return fetch('http://localhost:8000/goodhabits/', {
+            'method': 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+    static PostGoodHabitsToRaise (body){
+        return fetch('http://localhost:8000/goodhabitstoraise/', {
+            'method': 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+    static PostFeeling (body){
+        return fetch('http://localhost:8000/feeling/', {
+            'method': 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+    static GetFeeling(token){
+        return fetch('http://localhost:8000/feeling/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(resp => resp.json())
+        .catch(error => error)
+      }
+
+      static GetHabitsDone(token){
+        return fetch('http://localhost:8000/habitsdonetoday/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+          }
+        })
+        .then(resp => resp.json())
+        .catch(error => error)
+      }
+      static PostHabitsDone (body){
+        return fetch('http://localhost:8000/habitsdonetoday/', {
+            'method': 'POST',
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(body)
+        }).then(resp => resp.json())
+    }
+    static DeleteFeeling (id){
+      return fetch(`http://localhost:8000/feeling/${id}/`,{
+          'method': 'DELETE',
+          headers : {
+              'Content-Type': 'application/json',
+          },
+      }).then(resp => resp)
+  }
 }

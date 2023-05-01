@@ -20,3 +20,38 @@
     background-color: azure;
     width: 350px;
 }
+.trigger-container{
+    display: flex;
+    overflow:initial;
+    margin: 0 10%;
+}
+.trigger{
+    margin: 20px 50px;
+    background-color: rgba(202, 147, 79, 0.787);
+    padding: 13px;
+    width: 500px;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    color: aliceblue;
+}
+#arrow{
+    cursor: pointer;
+    font-size: 20px;
+}
+#arrow:hover{
+    translate: 5px 0px;
+}
+
+.pearson{
+    margin-left: 33%;
+    width: 500px;
+    padding: 13px;
+    font-weight: bold;
+    color: aliceblue;
+    background-color: rgba(202, 147, 79, 0.787);
+    border-radius: 7px;
+    text-align: center;
+}

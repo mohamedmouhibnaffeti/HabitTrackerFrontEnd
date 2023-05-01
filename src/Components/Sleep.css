@@ -1,0 +1,126 @@
+.sleep-popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(60, 60, 60, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+}
+#add-task-h1{
+    margin-top: 0;
+}
+.sleep-popup-inner{
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 100%;
+    background-color: #fff;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.2%;
+}
+.sleep-buttons-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1em;
+}
+.sleep-popup-inner .Confirm-btn{
+    top: 16%;
+    right: 16px;
+    border-radius: 7px;
+    width: 80px;
+    cursor: pointer;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.Cancel-btn{
+    top: 30%;
+    right: 16px;
+    border-radius: 7px;
+    width: 80px;
+    height: 35px;
+    cursor: pointer;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+.sleep-popup-inner .Cancel-btn:hover {
+    background-color: rgba(164, 161, 161, 0.55);
+}
+.sleep-popup-inner .Confirm-btn:hover {
+    background-color: rgba(164, 161, 161, 0.55);
+}
+
+.cross-container{
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 24px;
+    margin-left:99%;
+    width: fit-content;
+    padding: 0 6px;
+    height:fit-content;
+    cursor: pointer;
+}
+.header-sleep-container{
+    display: flex;
+    text-align: center;
+    width:100%;
+}
+.cross-container:hover{
+    border: 1px solid red;
+    border-radius: 4px;
+    background-color: red;
+    color: white;
+}
+#sleep-txt{
+    margin-top: 0;
+    margin-left: 37.5%;
+    position: fixed;
+}
+#sleep-entry{
+    background-color: rgb(43, 118, 141);
+    border-radius: 20px;
+    width: fit-content;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    margin:15px 45.5%;
+}
+.input-container-sleep{
+    display: flex;
+    gap: 5em;
+    justify-content: space-between;
+    margin-top: 1.6%;
+}
+.new-sleep-entry{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    gap: 1em;
+}
+#sleep-entry-txt{
+    margin-top: 0;
+}
+.sleep-buttons-container{
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    justify-content: space-evenly;
+    margin: 30px;
+}
+#sleep-btn{
+    background-color: rgb(43, 118, 141);
+    border-radius: 20px;
+    width: fit-content;
+    padding: 7px 20px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    width: max-content;
+}

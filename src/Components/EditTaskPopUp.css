@@ -38,12 +38,12 @@
     cursor: pointer;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.EditTaskPopupInner .Cancel-btn{
+.Cancel-btn{
     top: 30%;
     right: 16px;
     border-radius: 7px;
     width: 80px;
-    height: 30px;
+    height: 35px;
     cursor: pointer;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
