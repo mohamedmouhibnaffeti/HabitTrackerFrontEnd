@@ -11,6 +11,7 @@ import HabitsDone from './HabitsDone'
 import Social from './SocialConnections'
 import Sleep from './Sleep'
 import Relaxation from './Relaxation'
+import { Box } from '@mui/material';
 function Mental(){
     const [Moods, setMoods] = useState([])
     const [Feeling, setFeeling] = useState('')
@@ -156,6 +157,22 @@ function Mental(){
             <div className="pearson" style={PearsonStyles()}>
               <p>{GoodHabits.length > 0 && calculateCorrelation()}</p>
             </div>
+            <Box
+              sx={{
+                width: 400,
+                height: 200,
+                backgroundColor: 'primary.dark',
+                marginLeft: 68,
+                borderRadius: 3,
+                marginTop: 2,
+                textAlign: 'center',
+                opacity: [0.6],
+                padding: 5,
+              }}
+            >
+              <p style={{fontWeight: 'bold', fontFamily:'Montserrat', fontSize: '20pxy'}}>"Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle."</p>
+              <p>- Christian D. Larson</p>
+            </Box>
             <FeelingsChart/>
         </div>
         {Habitopen === true && <AddHabits Habitopen={Habitopen} setHabitOpen={setHabitOpen} />}
