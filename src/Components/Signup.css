@@ -1,12 +1,16 @@
 .SignupContainer{
     align-items: center;
     display: block;
-    margin: 50px 36%;
-    background-color: rgba(0, 174, 255, 0.236);
-    width: 400px;
-    height: 380px;
+    margin: 50px 32%;
+    background-color: #f8f9fb;
+    width: fit-content;
+    padding-left: 12vh;
+    padding-right: 12vh;
     text-align: center;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding-bottom: 30px;
+    margin-bottom: 12vh;
 }
 #SignupH1{
     padding: 5px;
@@ -25,8 +29,10 @@
 #Signuptxt{
     margin-top: 7px;
     cursor: pointer;
-    font-size: 17px
+    font-size: 17px;
+    color: #001d3d;
 }
 #Signuptxt :hover{
     text-decoration: underline;
+    color: #07294e;
 }

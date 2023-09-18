@@ -179,12 +179,4 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
-    static DeleteFeeling (id){
-      return fetch(`http://localhost:8000/feeling/${id}/`,{
-          'method': 'DELETE',
-          headers : {
-              'Content-Type': 'application/json',
-          },
-      }).then(resp => resp)
-  }
 }

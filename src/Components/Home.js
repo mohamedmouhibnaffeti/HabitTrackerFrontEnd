@@ -10,6 +10,8 @@ import APIService from "./APIService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditTaskPopup from "./EditTaskPopUp";
 import TasksChart from "./TasksChart";
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import { Button } from '@mui/material'
 function Home(){
     //useState of task based on date selection
     const [putDate, setPutDate] = useCookies(['putDate'])
@@ -46,7 +48,7 @@ function Home(){
         <>
         <Nav/>
         <div className="HomeContainer"> 
-            <div className="AddTaskPerformer" onClick={setTrigger}>Create New Task</div>
+            <Button variant='outlined' endIcon={<AddTaskIcon/>} onClick={setTrigger} style={{alignSelf: 'center', marginLeft: '44%', marginTop: '13vh', color: 'orange', border:'1px orange solid'}}>Create New Task</Button>
             <AddTask trigger={trigger} setTrigger={setTrigger} />
             <div className="TasksDiv">
             <div className="TaskWrapper">

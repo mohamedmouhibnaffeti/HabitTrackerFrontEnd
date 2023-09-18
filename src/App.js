@@ -10,6 +10,8 @@ import Mental from './Components/Mental';
 import { useCookies } from 'react-cookie'
 import APIService from './Components/APIService';
 import Workout from './Components/Workouts';
+import Nutrition from './Components/Nutrition';
+import Contact from './Components/Contact';
 function App() {
   return (
     <div>
@@ -17,9 +19,10 @@ function App() {
         <Route path='/' element={<Login/>}/>
         <Route path='/Signup' element={<Signup/>} />
         <Route path='/Home' element={<Home/>} />
-        <Route path='/Profile' element={<Profile/>} />
         <Route path='/Mental' element={<Mental/>} />
         <Route path='/Workouts' element={<Workout/>}/>
+        <Route path='/Nutrition' element={<Nutrition/>}/>
+        <Route path='/Contact' element={<Contact/>} />
 
       </Routes>
       <Footer/>

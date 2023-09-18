@@ -5,8 +5,7 @@ function Foot(){
     return(
         <>
         <footer>
-            <span className="text-muted">All rights reserved 2023 @ Mohamed Mouhib Naffeti</span>          
-            <hr></hr>
+            <span className="text-muted" style={{color: 'white'}}>All rights reserved 2023 @ No One</span>          
             <div className='lg'>
             <a href="https://www.facebook.com" className='h3'><i className="fa fa-facebook-square" aria-hidden="true"></i></a>
             <a href="https://linkedin.com" className='h4'><i className="fa fa-linkedin-square" aria-hidden="true"></i></a>

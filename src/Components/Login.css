@@ -1,62 +1,59 @@
+.LoginContainer{
+    margin-bottom: 13vh;
+    margin-top: 12vh;
+}
 .LoginItems{
-    margin-top: 50px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-left: 38%;
-    background-color: rgba(0, 174, 255, 0.236);
-    width: 400px;
-    height: 360px;
+    background-color: #f8f9fb;
     text-align: center;
+    align-self: center;
+    margin-left: 33%;
+    max-width: fit-content; 
     border-radius: 10px;
+    padding-left: 12vh;
+    padding-right: 12vh;
+    padding-bottom: 10vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-#txt{
-    border-radius: 7px;
-    height: 32px;
-    width: 250px;
-}
-#btn{
-    border-radius: 7px;
-    height: 32px;
-    width: 100px;
-    cursor: pointer;
-}
+
 #Logintxt{
     cursor: pointer;
-    font-size: 17px
+    font-size: 17px;
+    color: #001d3d;
 }
 #Logintxt:hover{
-    color: blue;
+    color: #07294e;
     text-decoration: underline;
 }
-#LoginH1{
-    padding: 10px;
-}
+
 
 
 @media only screen and (max-width: 800px){
     .LoginItems{
-        margin-left: 100px;
+        margin-left: 50px;
     }
 }
 
 
 @media only screen and (max-width: 700px){
     .LoginItems{
-        margin-left: 85px;
+        margin-left: 35px;
     }
 }
 
 
 @media only screen and (max-width: 650px){
     .LoginItems{
-        margin-left: 70px;
+        margin-left: 30px;
     }
 }
 
 
 @media only screen and (max-width: 600px){
     .LoginItems{
-        margin-left: 50px;
+        margin-left: 30px;
     }
 }
 

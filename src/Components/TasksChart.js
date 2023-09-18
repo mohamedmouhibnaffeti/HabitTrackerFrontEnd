@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import APIService from './APIService';
 import { useCookies } from 'react-cookie';
+import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
+import Button from '@mui/material/Button'
+import RuleOutlinedIcon from '@mui/icons-material/RuleOutlined';
 
 function TasksChart() {
   const [user, setuser] = useCookies(['username'])
@@ -234,10 +237,8 @@ function TasksChart() {
     <>
     
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-        <button onClick={handlePriorityClick} style={{ marginRight: '10px', borderRadius : '6px' }}>
-          Tasks Done
-        </button>
-        <button onClick={handleStateClick} style={{ borderRadius : '6px' }}>All Tasks</button>
+        <Button variant='Text' endIcon={<TaskAltOutlinedIcon/>} onClick={handlePriorityClick} style={{marginRight: '20px'}}>Tasks Done</Button>
+        <Button variant='Text' endIcon={<RuleOutlinedIcon/>} onClick={handleStateClick}>All Tasks</Button>
       </div>
     <div style={{ width: '60%', padding: '', marginLeft: '19%', top: '0', backgroundColor : 'white', marginTop : '10px' }}>
       
