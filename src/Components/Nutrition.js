@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Nav from './Nav'
 import TextField from '@mui/material/TextField';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
@@ -13,6 +13,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
+import APIService from './APIService';
+import ErrorImage from './Images/Animations/vecteezy_error-vector-icon-design_20092168.jpg'
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,11 +41,27 @@ function createData(qty, unit, food, calories, weight) {
   return { qty, unit, food, calories, weight };
 }
 
-const rows = [
-  createData(1, 'Cup', 'rice', '702 kcal', '195 g'),
-];
 
 export default function Nutrition(){
+
+    const [NutritionDataState, SetNutritionDataState] = useState(false)
+    const [NutritionData, setNutritionData] = useState({}) 
+    const [foodToTrack, setFoodToTrack] = useState('')
+    const onAnalyseClick = async () =>{
+        const response = await APIService.GetNutritionDetails(foodToTrack)
+        console.log("NT",NutritionData)
+        if(response.message !== "Cannot read properties of undefined (reading '0')" && response.message !== 'Request failed with status code 400' ){
+            setNutritionData(response)
+            SetNutritionDataState(true)
+        }else{
+            SetNutritionDataState(false)
+        }
+    }
+    console.log(NutritionData)
+
+    const rows = [
+        createData(NutritionData.quantity, NutritionData.unit, NutritionData.food, NutritionData.calories + ' kcal', NutritionData.weight + ' g'),
+      ];
     return (
         <>
             <Nav/>
@@ -58,9 +77,11 @@ export default function Nutrition(){
                         rows={4}
                         variant="filled"
                         style={{width: '350px', marginTop: '20px'}}
+                        onChange={(e)=>setFoodToTrack(e.target.value)}
+                        value={foodToTrack}
                     />
-                    <Button variant="outlined" endIcon={<TroubleshootIcon />} style={{border: '1px solid #e3a90e', color: '#e3a90e', marginTop: '25px'}}> Analyse </Button>
-                    <TableContainer component={Paper} style={{marginTop:'20px'}}>
+                    <Button variant="outlined" endIcon={<TroubleshootIcon />} style={{border: '1px solid #e3a90e', color: '#e3a90e', marginTop: '25px'}} onClick={onAnalyseClick}> Analyse </Button>
+                    {NutritionDataState ? <TableContainer component={Paper} style={{marginTop:'20px'}}>
                         <Table sx={{ minWidth: 450 }} aria-label="customized table">
                             <TableHead>
                             <TableRow>
@@ -85,90 +106,93 @@ export default function Nutrition(){
                             ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer> : <div style={{fontSize: '18px', color: '#ff9248', fontWeight: 'bold', marginTop: '30px'}}>Please insert a valid food name <SentimentDissatisfiedIcon style={{transform: 'translateY(6px)'}}/> </div>}
                     </div>
-                    <div className='nutrition-facts-container'>
-                        <div className='nutrition-facts'>
+                    <div className='nutrition-facts-container' >
+                    { NutritionDataState ?  <div className='nutrition-facts'>
                             <p style={{fontSize: '22px', fontWeight: 'bold', alignSelf: 'center'}}>Nutrition Facts</p>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '5px'}}/>
                             <p style={{fontSize: '15px', fontWeight: 'bold'}}>Amount Per Serving</p>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <p style={{fontSize: '22px', fontWeight: 'bold'}}>Calories</p>
-                                <p style={{fontSize: '18px', fontWeight: 'bold', transform:'translateY(5px)'}}>1270</p>
+                                <p style={{fontSize: '18px', fontWeight: 'bold', transform:'translateY(5px)'}}>{NutritionData.calories}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '4px'}}/>
-                            <p style={{alignSelf: 'flex-end', fontSize: '10px', fontWeight: 'bold'}}>% Daily Value*</p>
+                            <p style={{alignSelf: 'flex-end', fontSize: '10px', fontWeight: 'bold'}}>Amount*</p>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between'}}>
-                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Total Fat <span style={{fontWeight: 'normal'}}>18.3 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>28%</p>
+                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Total Fat <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.totalFat}</p>
                             </div>
                             <hr style={{width: '90%', backgroundColor: 'black', height: '1px', alignSelf: 'center'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Saturated Fat <span style={{fontWeight: 'normal'}}>3 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>10%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Saturated Fat <span style={{fontWeight: 'normal'}}>(g)</span> </p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.saturatedFat}</p>
                             </div>
                             <hr style={{width: '90%', backgroundColor: 'black', height: '1px', alignSelf: 'center'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Trans Fat <span style={{fontWeight: 'normal'}}>0 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}></p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Trans Fat <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.transFat}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between'}}>
-                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Cholesterol <span style={{fontWeight: 'normal'}}>0 mg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>0%</p>
+                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Cholesterol <span style={{fontWeight: 'normal'}}>(mg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.cholesterol}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between'}}>
-                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Sodium <span style={{fontWeight: 'normal'}}>70 mg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>3%</p>
+                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Sodium <span style={{fontWeight: 'normal'}}>(mg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.sodium}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between'}}>
-                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Total Carbohydrate <span style={{fontWeight: 'normal'}}>333.2 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>111%</p>
+                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Total Carbohydrate <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.totalCarbohydrate}</p>
                             </div>
                             <hr style={{width: '90%', backgroundColor: 'black', height: '1px', alignSelf: 'center'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>	Dietary Fiber <span style={{fontWeight: 'normal'}}>34.6 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>138%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>	Dietary Fiber <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.dietaryFiber}</p>
                             </div>
                             <hr style={{width: '90%', backgroundColor: 'black', height: '1px', alignSelf: 'center'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Total Sugars <span style={{fontWeight: 'normal'}}>30.3 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}></p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Total Sugars <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.totalSugars}</p>
                             </div>
                             <hr style={{width: '90%', backgroundColor: 'black', height: '1px', alignSelf: 'center'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Includes- Added Sugars <span style={{fontWeight: 'normal'}}></span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}></p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Total CO2 Emissions</p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.totalCO2Emissions}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between'}}>
-                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Protein <span style={{fontWeight: 'normal'}}>71 g</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>142%</p>
+                                <p style={{fontWeight: 'bold', fontSize:'15px'}}>Protein <span style={{fontWeight: 'normal'}}>(g)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.protein}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Vitamin D <span style={{fontWeight: 'normal'}}>0 µg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>0%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Vitamin D <span style={{fontWeight: 'normal'}}>(µg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.vitaminD}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Calcium <span style={{fontWeight: 'normal'}}>179.7 mg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>18%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Calcium <span style={{fontWeight: 'normal'}}>(mg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.calcium}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Iron <span style={{fontWeight: 'normal'}}>13.8 mg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>77%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Iron <span style={{fontWeight: 'normal'}}>(mg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.iron}</p>
                             </div>
                             <hr style={{width: '100%', backgroundColor: 'black', height: '1px'}}/>
                             <div style={{display: 'flex', justifyContent:'space-between', marginLeft:'20px'}}>
-                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Potassium <span style={{fontWeight: 'normal'}}>2203.2 mg</span></p>
-                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>47%</p>
+                                <p style={{fontWeight: 'normal', fontSize:'15px'}}>Potassium <span style={{fontWeight: 'normal'}}>(mg)</span></p>
+                                <p style={{fontWeight:'bold', fontSize:'15px', transform:'traslateY(6px)'}}>{NutritionData.potassium}</p>
                             </div>
                         </div>
+                        : 
+                        <img src={ErrorImage} alt='' width={300} height={400} style={{marginRight: 20}} />
+                        }
                     </div>
                 </div>
             </div>

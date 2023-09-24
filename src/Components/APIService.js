@@ -11,7 +11,7 @@ export default class APIService {
     })
     .then(resp => resp.json())
     .catch(error => error)
-}
+  }
 
     static Signup (body){
         return fetch('http://localhost:8000/users/', {
@@ -179,4 +179,15 @@ export default class APIService {
             body:JSON.stringify(body)
         }).then(resp => resp.json())
     }
+
+      static GetNutritionDetails (foodToTrack){
+        return fetch(`http://localhost:5000/nutrition/food?foodToTrack=${foodToTrack}`, {
+          'method': 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(resp => resp.json())
+        .catch(err => err)
+      }
 }
